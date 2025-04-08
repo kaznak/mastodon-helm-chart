@@ -17,14 +17,16 @@ metadata:
     {{- include "mastodon.labels" . | nindent 4 }}
   annotations:
     {{- if .prepare }}
-    "helm.sh/hook": pre-install
+    "helm.sh/hook": post-install
     {{- else if .preDeploy }}
-    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook": post-upgrade
     {{- else }}
     "helm.sh/hook": post-install,post-upgrade
     {{- end }}
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
     {{- if .prepare }}
+    "helm.sh/hook-weight": "-3"
+    {{- else if .preDeploy }}
     "helm.sh/hook-weight": "-3"
     {{- else }}
     "helm.sh/hook-weight": "-2"
