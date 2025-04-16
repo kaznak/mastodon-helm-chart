@@ -807,7 +807,14 @@ podSecurityContext:
   fsGroup: 991
 
 # @ignored
-securityContext: {}
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
 
 serviceAccount:
   # -- Specifies whether a service account should be created
