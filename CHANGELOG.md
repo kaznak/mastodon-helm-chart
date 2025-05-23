@@ -1,3 +1,19 @@
+# 6.3.3
+
+- Updated the Mastodon version to v4.3.8
+
+# 6.3.2
+
+- No longer sets `DEFAULT_LOCALE` to `en` by default; leaves this value unset.
+
+# 6.3.1
+
+- Removed DB_POOL from the ConfigMap as we should never have to override this.
+
+# 6.3.0
+
+- Added `nodeSelector` fields for every resource type for better fine-grain tuning of where resources end up.
+
 # 6.2.4
 
 - Fixed an issue where redis secrets specified in values or the helm CLI wouldn't be used by the db-prepare job on install.
