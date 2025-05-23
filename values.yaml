@@ -161,6 +161,7 @@ mastodon:
     bucket: ""
     endpoint: ""
     hostname: ""
+    protocol: https
     region: ""
     permission: ""
     # -- If you have a caching proxy, enter its base URL here.
