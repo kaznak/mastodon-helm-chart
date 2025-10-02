@@ -292,6 +292,7 @@ mastodon:
           - mailers,2
           - pull
           - scheduler # Make sure the scheduler queue only exists once and with a worker that has 1 replica.
+          - fasp
         image:
           repository:
           tag:
@@ -336,6 +337,29 @@ mastodon:
     # -- Instead of defining login/password above, you can specify the name of an existing secret here. Login and
     # password must be located in keys named `login` and `password` respectively.
     existingSecret:
+
+    # Configuration for bulk/broadcast messages.
+    # Some transactional email providers require customers to use a separate set
+    # of SMTP credentials to send emails that are not transactional in nature.
+    # For more information, refer to the docs:
+    # https://docs.joinmastodon.org/admin/config/#optional-bulk-email-settings
+    bulk:
+      enabled: false
+      auth_method: plain
+      ca_file: /etc/ssl/certs/ca-certificates.crt
+      domain:
+      enable_starttls: "auto"
+      from_address: notifications@example.com
+      openssl_verify_mode: peer
+      port: 587
+      server: smtp.mailgun.org
+      tls:
+      login:
+      password:
+      # -- Instead of defining login/password above, you can specify the name of an existing secret here. Login and
+      # password must be located in keys named `login` and `password` respectively.
+      existingSecret:
+
   streaming:
     image:
       # streaming image split in Mastodon v4.3.0
@@ -492,6 +516,8 @@ mastodon:
       existingSecret:
 
   metrics:
+
+    # NOTE: This feature was dropped in v4.3.0, and will not work for any versions beyond this.
     statsd:
       # -- Enable statsd publishing via STATSD_ADDR environment variable
       address: ""
@@ -501,7 +527,7 @@ mastodon:
         enabled: false
         port: 9102
 
-    # Settings for Prometheus metrics. NOTE: Only available in Mastodon v4.4.
+    # Settings for Prometheus metrics.
     # For more information, see:
     # https://docs.joinmastodon.org/admin/config/#prometheus
     prometheus:
